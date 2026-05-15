@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Secrets — never commit
+.env
+.env.example
+.env.production
+
+# OS
+.DS_Store
+Thumbs.db
