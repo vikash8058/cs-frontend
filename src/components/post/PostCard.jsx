@@ -120,7 +120,7 @@ export default function PostCard({ post, onDeleted, onEdit, authorDetails = null
           </div>
           <div className="post-meta">
             {timeAgo(post.createdAt)}
-            {post.updatedAt && post.updatedAt !== post.createdAt && ' · edited'}
+            {post.updatedAt && (new Date(post.updatedAt) - new Date(post.createdAt) > 60000) && ' · edited'}
           </div>
         </div>
 

@@ -111,7 +111,10 @@ export default function CommentItem({ comment, postId, onDeleted, onCountChange 
 
           {/* Comment actions */}
           <div className="comment-meta">
-            <span>{timeAgo(comment.createdAt)}</span>
+            <span>
+              {timeAgo(comment.createdAt)}
+              {comment.updatedAt && (new Date(comment.updatedAt) - new Date(comment.createdAt) > 60000) && ' · edited'}
+            </span>
             <button
               style={{ background: 'none', border: 'none', cursor: 'pointer', color: liked ? 'var(--error)' : 'var(--text-muted)', fontSize: '0.72rem', display: 'flex', alignItems: 'center', gap: 3 }}
               onClick={handleLike}
