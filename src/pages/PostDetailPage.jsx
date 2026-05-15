@@ -30,9 +30,26 @@ export function PostDetailPage() {
 
   return (
     <div>
-      <div style={{ padding: '0.75rem 1.5rem', borderBottom: '1px solid var(--border-light)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-        <button className="btn btn-ghost btn-sm" onClick={() => navigate(-1)}>← Back</button>
-        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem' }}>Post</h3>
+      <div style={{ 
+        padding: '1rem 1.5rem', 
+        borderBottom: '1px solid var(--border-light)', 
+        background: 'var(--white)',
+        display: 'flex', 
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'sticky',
+        top: 0,
+        zIndex: 10
+      }}>
+        <h3 style={{ 
+          fontFamily: 'var(--font-display)', 
+          fontSize: '1.1rem', 
+          fontWeight: 700,
+          color: 'var(--text-primary)',
+          margin: 0
+        }}>
+          Post
+        </h3>
       </div>
       {loading ? <Spinner centered /> : !post ? <EmptyState icon="📭" title="Post not found" /> : (
         <PostCard post={post} authorDetails={author} onDeleted={() => navigate(-1)} />
