@@ -105,11 +105,13 @@ export default function Navbar({ onNewPost }) {
       </div>
 
       {/* Mobile Search Toggle Button (Shows when search is closed) */}
+      {/* Mobile Actions (Search & Notifications) */}
       {!showMobileSearch && (
-        <div className="navbar-mobile-only" style={{ marginLeft: 'auto', marginRight: '0.5rem' }}>
+        <div className="navbar-mobile-only" style={{ marginLeft: 'auto', marginRight: '0.5rem', alignItems: 'center', gap: '0.25rem' }}>
           <button className="navbar-hamburger" onClick={() => setShowMobileSearch(true)}>
             <Search size={22} />
           </button>
+          {isAuthenticated && <NotificationBell />}
         </div>
       )}
 

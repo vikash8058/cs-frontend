@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { Home, Compass, Bell, User, Plus } from 'lucide-react';
+import { Home, Compass, Bell, User, Plus, Settings } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
@@ -16,10 +16,13 @@ export default function AppLayout() {
   const mobileLinks = isAuthenticated ? [
     { to: '/feed',          label: 'Home',    Icon: Home },
     { to: '/explore',       label: 'Explore', Icon: Compass },
-    { to: '/notifications', label: 'Alerts',  Icon: Bell },
+    { type: 'action',       label: 'Post',    Icon: Plus, onClick: () => setShowPostModal(true) },
     { to: `/profile/${user?.userId}`, label: 'Profile', Icon: User },
+    { to: '/settings',      label: 'Settings', Icon: Settings },
   ] : [
+    { to: '/feed',          label: 'Home',    Icon: Home },
     { to: '/explore',       label: 'Explore', Icon: Compass },
+    { to: '/login',         label: 'Login',   Icon: User },
   ];
 
   return (
@@ -35,21 +38,16 @@ export default function AppLayout() {
 
       {/* Mobile bottom nav */}
       <nav className="mobile-nav">
-        {mobileLinks.map(({ to, label, Icon }) => (
+        {mobileLinks.map((link) => (
           <div
-            key={to}
-            className={`mobile-nav-item${location.pathname === to ? ' active' : ''}`}
-            onClick={() => navigate(to)}
+            key={link.label}
+            className={`mobile-nav-item${location.pathname === link.to ? ' active' : ''}${link.label === 'Post' ? ' post-center' : ''}`}
+            onClick={() => link.onClick ? link.onClick() : navigate(link.to)}
           >
-            <Icon size={20} />
-            <span>{label}</span>
+            <link.Icon size={22} />
+            <span>{link.label}</span>
           </div>
         ))}
-        {/* Center new post button */}
-        <div className="mobile-nav-item" onClick={() => isAuthenticated ? setShowPostModal(true) : navigate('/login')}>
-          <Plus size={20} />
-          <span>Post</span>
-        </div>
       </nav>
 
       {/* New post modal */}
